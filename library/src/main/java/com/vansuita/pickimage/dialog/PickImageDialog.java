@@ -88,8 +88,8 @@ public class PickImageDialog extends PickImageBaseDialog {
     }
 
     @Override
-    public PickImageDialog setOnPickError(IPickError error) {
-        return (PickImageDialog) super.setOnPickError(error);
+    public PickImageDialog setOnPickErrorListener(IPickError onErrorListener) {
+        return (PickImageDialog) super.setOnPickErrorListener(onErrorListener);
     }
 
     @Override

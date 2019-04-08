@@ -299,7 +299,7 @@ public abstract class PickImageBaseDialog extends DialogFragment implements IPic
         return this;
     }
 
-    protected PickImageBaseDialog setOnPickError(IPickError onErrorListener) {
+    protected PickImageBaseDialog setOnPickErrorListener(IPickError onErrorListener) {
         this.onErrorListener = onErrorListener;
         return this;
     }

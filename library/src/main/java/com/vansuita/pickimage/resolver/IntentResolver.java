@@ -48,7 +48,7 @@ public class IntentResolver {
     private Intent cameraIntent;
     private File saveFile;
 
-    private IPickError onError;
+    private IPickError onErrorListener;
 
     public IntentResolver(AppCompatActivity activity, PickSetup setup, Bundle savedInstanceState) {
         this.activity = activity;
@@ -182,11 +182,11 @@ public class IntentResolver {
     public void launchGallery(Fragment listener) {
         try {
             listener.startActivityForResult(loadSystemPackages(getGalleryIntent()), REQUESTER);
-        } catch (Exception e) {
-            if (onError != null) {
-                onError.onErrorLaunchingGallery(e);
+        } catch (Exception exception) {
+            if (onErrorListener != null) {
+                onErrorListener.onErrorLaunchingGallery(exception);
             } else {
-                throw e;
+                throw exception;
             }
         }
     }
@@ -281,6 +281,6 @@ public class IntentResolver {
     }
 
     public void setErrorListener(IPickError onError) {
-        this.onError = onError;
+        this.onErrorListener = onError;
     }
 }

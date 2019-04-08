@@ -28,7 +28,7 @@ public class SampleActivity extends BaseSampleActivity implements IPickResult /*
 
         PickImageDialog.build(setup)
                 //.setOnClick(this)
-                .setOnPickError(new IPickError() {
+                .setOnPickErrorListener(new IPickError() {
                     @Override
                     public void onErrorLaunchingGallery(Exception exception) {
                         Toast.makeText(getApplicationContext(), "ERROR OCCURED", Toast.LENGTH_SHORT).show();
