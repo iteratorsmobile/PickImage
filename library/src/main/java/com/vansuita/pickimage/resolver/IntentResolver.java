@@ -2,16 +2,21 @@ package com.vansuita.pickimage.resolver;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 
 import com.vansuita.pickimage.R;
 import com.vansuita.pickimage.bundle.PickSetup;
@@ -20,17 +25,8 @@ import com.vansuita.pickimage.keep.Keep;
 import com.vansuita.pickimage.listeners.IPickError;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
 
 /**
  * Created by jrvansuita build 07/02/17.
@@ -120,25 +116,9 @@ public class IntentResolver {
             return saveFile;
         }
 
-        File directory;
-        String fileName;
-        if (setup.isCameraToPictures()) {
-            ApplicationInfo applicationInfo = activity.getApplicationInfo();
-            int stringId = applicationInfo.labelRes;
-            String appName = stringId == 0 ? applicationInfo.nonLocalizedLabel.toString() : activity.getString(stringId);
-            directory = new File(activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES), appName);
-            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            if (setup.isVideo()) {
-                fileName = timeStamp + ".mp4";
-            } else {
-                fileName = timeStamp + ".jpg";
-            }
-        } else {
-            directory = new File(activity.getFilesDir(), "picked");
-            fileName = activity.getString(R.string.image_file_name);
-        }
+        File directory = new File(activity.getFilesDir(), "picked");
+        String fileName = activity.getString(R.string.image_file_name);
 
-        // File directory = new File(activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES),"teste");
         directory.mkdirs();
         saveFile = new File(directory, fileName);
         Log.i("File-PickImage", saveFile.getAbsolutePath());
@@ -211,32 +191,20 @@ public class IntentResolver {
         }
     }
 
-    private String[] getAllPermissionsNeeded() {
-        return new String[]{
-                Manifest.permission.CAMERA,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE};
-    }
-
     public boolean wasCameraPermissionDeniedForever() {
         if (Keep.with(activity).neverAskedForPermissionYet())
             return false;
 
-        for (String permission : getAllPermissionsNeeded()) {
-            if (((ContextCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_DENIED)
-                    && (!ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)))) {
-                return true;
-            }
+        if (((ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
+                && (!ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.CAMERA)))) {
+            return true;
         }
 
         return false;
     }
 
     public boolean requestCameraPermissions(Fragment listener) {
-        return requestPermissions(listener, getAllPermissionsNeeded());
-    }
-
-    public boolean requestGalleryPermissions(Fragment listener) {
-        return requestPermissions(listener, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        return requestPermissions(listener, Manifest.permission.CAMERA);
     }
 
     /**

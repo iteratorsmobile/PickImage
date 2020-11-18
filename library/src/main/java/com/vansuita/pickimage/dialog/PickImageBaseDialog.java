@@ -260,8 +260,7 @@ public abstract class PickImageBaseDialog extends DialogFragment implements IPic
     }
 
     protected void launchGallery() {
-        if (resolver.requestGalleryPermissions(this))
-            resolver.launchGallery(this);
+        resolver.launchGallery(this);
     }
 
     protected boolean launchSystemDialog() {
