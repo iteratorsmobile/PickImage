@@ -52,6 +52,9 @@ public class PickSetup implements Serializable {
 
     private boolean video;
 
+//    private String galleryChooserTitle = "";
+//    private String cameraChooserTitle = "";
+
     @OrientationMode
     private int buttonOrientation;
 
@@ -281,6 +284,25 @@ public class PickSetup implements Serializable {
         return this;
     }
 
+
+    public String getGalleryChooserTitle() {
+        return galleryChooserTitle;
+    }
+
+    public PickSetup setGalleryChooserTitle(String galleryChooserTitle) {
+        this.galleryChooserTitle = galleryChooserTitle;
+        return this;
+    }
+
+    public String getCameraChooserTitle() {
+        return cameraChooserTitle;
+    }
+
+    public PickSetup setCameraChooserTitle(String cameraChooserTitle) {
+        this.cameraChooserTitle = cameraChooserTitle;
+        return this;
+    }
+
     public PickSetup() {
         setTitle("Choose")
                 .setBackgroundColor(Color.WHITE)
@@ -291,6 +313,8 @@ public class PickSetup implements Serializable {
                 .setMaxSize(300)
                 .setWidth(0)
                 .setHeight(0)
+                .setGalleryChooserTitle("Pick from")
+                .setCameraChooserTitle("Capture using")
                 .setPickTypes(EPickType.CAMERA, EPickType.GALLERY)
                 .setProgressText("Loading...")
                 .setButtonOrientation(LinearLayout.VERTICAL)

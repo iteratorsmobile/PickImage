@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Library</string>
     <string name="camera">Camera</string>
+    <string name="default_camera_chooser_title">Capture using</string>
+    <string name="default_gallery_chooser_title">Pick using</string>
     <string name="gallery">Gallery</string>
     <string name="choose">Choose</string>
     <string name="cancel">Cancel</string>
@@ -8,4 +10,5 @@
     <string name="no_providers">No providers available to show.</string>
     <string name="wrong_authority">FileProvider not declared or has wrong authority. (Must be ${applicationId}.com.vansuita.pickimage.provider, check your AndroidManifest.xml)</string>
     <string name="activity_destroyed">Activity was destroyed, can\'t handle pick image result.</string>
+    <string name="gallery_app_not_found">Gallery app not found.</string>
 </resources>

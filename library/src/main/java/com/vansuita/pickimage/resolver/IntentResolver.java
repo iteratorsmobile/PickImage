@@ -1,6 +1,7 @@
 package com.vansuita.pickimage.resolver;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -92,12 +94,11 @@ public class IntentResolver {
     }
 
     public void launchCamera(Fragment listener) {
-        if (getCameraIntent().resolveActivity(activity.getPackageManager()) != null) {
 
             cameraFile().delete();
 
-            listener.startActivityForResult(loadSystemPackages(getCameraIntent()), REQUESTER);
-        }
+            Intent chooser = Intent.createChooser(getCameraIntent(), setup.getCameraChooserTitle());
+            listener.startActivityForResult(chooser, REQUESTER);
     }
 
     /**
