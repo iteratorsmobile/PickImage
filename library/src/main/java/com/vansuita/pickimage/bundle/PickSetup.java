@@ -52,8 +52,8 @@ public class PickSetup implements Serializable {
 
     private boolean video;
 
-//    private String galleryChooserTitle = "";
-//    private String cameraChooserTitle = "";
+    private String galleryChooserTitle = "";
+    private String cameraChooserTitle = "";
 
     @OrientationMode
     private int buttonOrientation;
