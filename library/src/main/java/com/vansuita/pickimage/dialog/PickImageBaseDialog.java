@@ -5,19 +5,18 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-import androidx.cardview.widget.CardView;
-import androidx.appcompat.widget.LinearLayoutCompat;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.DialogFragment;
 
 import com.vansuita.pickimage.R;
 import com.vansuita.pickimage.async.AsyncImageResult;
@@ -310,7 +309,7 @@ public abstract class PickImageBaseDialog extends DialogFragment implements IPic
                 if (onPickResult != null)
                     onPickResult.onPickResult(pickResult);
 
-                dismissAllowingStateLoss();
+                disablePickDialog();
             }
         });
     }
@@ -340,7 +339,11 @@ public abstract class PickImageBaseDialog extends DialogFragment implements IPic
         if (onPickResult != null) {
             onPickResult.onPickResult(new PickResult().setError(e));
 
-            dismissAllowingStateLoss();
+            disablePickDialog();
         }
+    }
+
+    protected void disablePickDialog() {
+        dismissAllowingStateLoss();
     }
 }
